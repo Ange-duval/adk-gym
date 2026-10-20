@@ -20,7 +20,7 @@ Module ADK GYM - Gestion complète de salle de sport pour Odoo 18
 - Impression directe depuis les boutons "Imprimer" des fiches, ou via le menu
   Imprimer (⚙️) et l'assistant "Rapport Périodique" (menu Rapports)
 """,
-    'author': 'ANGE DUVAL KAMBEU',
+    'author': '    Kambeu Henang Ange Duval',
     'maintainer': 'Kambeu Henang Ange Duval',
     'support': 'duvalkambeu61@gmail.com',
     'license': 'OPL-1',
