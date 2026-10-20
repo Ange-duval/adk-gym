@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_gym_subscription_renew_wizard_form" model="ir.ui.view">
+		<field name="name">adk.gym.subscription.renew.wizard.form</field>
+		<field name="model">adk.gym.subscription.renew.wizard</field>
+		<field name="arch" type="xml">
+			<form string="Renouveler l'Abonnement">
+				<sheet>
+					<group>
+						<group string="Membre">
+							<field name="member_id"/>
+							<field name="subscription_id" invisible="1"/>
+						</group>
+						<group string="Nouveau forfait">
+							<field name="type"/>
+							<field name="date_start"/>
+							<field name="coach_id" options="{'no_create': True}"/>
+							<field name="discipline_ids" widget="many2many_tags" options="{'no_create': True}"/>
+						</group>
+					</group>
+				</sheet>
+				<footer>
+					<button name="action_renew" string="Renouveler" type="object" class="oe_highlight"/>
+					<button string="Annuler" class="btn-secondary" special="cancel"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+</odoo>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="action_report_subscription_period" model="ir.actions.report">
+		<field name="name">Rapport Périodique Abonnements</field>
+		<field name="model">adk.gym.subscription</field>
+		<field name="report_type">qweb-pdf</field>
+		<field name="report_name">adk_gym.report_subscription_template</field>
+		<field name="report_file">adk_gym.report_subscription_template</field>
+		<field name="print_report_name">'Rapport_Abonnements_%s' % (object.name)</field>
+		<field name="binding_model_id" eval="False"/>
+	</record>
+
+	<template id="report_subscription_template">
+		<t t-call="web.html_container">
+			<t t-call="web.external_layout">
+				<div class="page">
+					<h2 style="text-align:center;">Rapport des Abonnements</h2>
+					<p>
+						<strong>Période :</strong>
+						<!-- La période est calculée directement à partir des enregistrements sélectionnés,
+							 ce qui évite toute dépendance à un dictionnaire "data" externe (peut être absent
+							 selon le point d'entrée utilisé pour générer le PDF). -->
+						<t t-if="docs and min(docs.mapped('date_start'))">
+							<span t-out="min(docs.mapped('date_start'))" t-options="{'widget': 'date'}"/> → <span t-out="max(docs.mapped('date_end'))" t-options="{'widget': 'date'}"/>
+						</t>
+						<t t-else="">
+							Toutes périodes confondues
+						</t>
+					</p>
+					<table class="table table-sm o_main_table">
+						<thead>
+							<tr>
+								<th>Référence</th>
+								<th>Membre</th>
+								<th>Coach</th>
+								<th>Discipline</th>
+								<th>Début</th>
+								<th>Fin</th>
+								<th>Prix</th>
+								<th>Total</th>
+								<th>État</th>
+							</tr>
+						</thead>
+						<tbody>
+							<t t-foreach="docs" t-as="o">
+								<tr>
+									<td><t t-esc="o.name"/></td>
+									<td><t t-esc="o.member_id.name"/></td>
+									<td><t t-esc="o.coach_id.name if o.coach_id else ''"/></td>
+									<td><t t-esc="', '.join(o.discipline_ids.mapped('name')) or ''"/></td>
+									<td><span t-out="o.date_start" t-options="{'widget': 'date'}"/></td>
+									<td><span t-out="o.date_end" t-options="{'widget': 'date'}"/></td>
+									<td><span t-out="o.price" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+									<td><span t-out="o.total_amount" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/></td>
+									<td><t t-esc="dict(o._fields['state'].selection).get(o.state)"/></td>
+								</tr>
+							</t>
+						</tbody>
+					</table>
+					<div style="margin-top:20px;">
+						<strong>Total global :</strong>
+						<span t-out="sum(docs.mapped('total_amount'))" t-options="{'widget': 'monetary', 'display_currency': env.company.currency_id}"/>
+					</div>
+				</div>
+			</t>
+		</t>
+	</template>
+</odoo>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- ========================================================== -->
+	<!-- MENU RACINE -->
+	<!-- ========================================================== -->
+	<menuitem id="menu_gym_root" name="ADK GYM" web_icon="adk_gym,static/description/icon.png" sequence="1"/>
+
+	<!-- 1. Menus Principaux -->
+	<menuitem id="menu_gym_dashboard" name="Tableau de Bord" parent="menu_gym_root" action="action_gym_dashboard" sequence="5"/>
+	<menuitem id="menu_gym_members" name="Membres" parent="menu_gym_root" action="action_gym_member" sequence="10"/>
+	<menuitem id="menu_gym_subs" name="Abonnements" parent="menu_gym_root" action="action_gym_subscription" sequence="20"/>
+	<menuitem id="menu_gym_programs" name="Programmes" parent="menu_gym_root" action="action_gym_program" sequence="25"/>
+	<menuitem id="menu_gym_coachs" name="Coachs" parent="menu_gym_root" action="action_gym_coach" sequence="30"/>
+	<menuitem id="menu_gym_products" name="Boutique" parent="menu_gym_root" action="action_gym_products" sequence="40"/>
+	<menuitem id="menu_gym_salle" name="Salles / Clubs" parent="menu_gym_root" action="action_gym_salle" sequence="50"/>
+
+	<!-- 2. Menu Rapports -->
+	<menuitem id="menu_gym_reports" name="Rapports" parent="menu_gym_root" sequence="70"/>
+	<menuitem id="menu_gym_subscription_analysis" name="Analyses des Abonnements" parent="menu_gym_reports" action="action_gym_subscription_analysis" sequence="10"/>
+	<menuitem id="menu_gym_equipment_stock_report" name="État de Stock des Outils" parent="menu_gym_reports" action="action_gym_equipment_stock_report" sequence="15"/>
+	<menuitem id="menu_gym_report_wizard" name="Rapport Périodique" parent="menu_gym_reports" action="action_gym_report_wizard" sequence="20"/>
+
+	<!-- 3. Menu Configuration (Sous-menus inclus) -->
+	<menuitem id="menu_gym_config" name="Configuration" parent="menu_gym_root" sequence="100"/>
+	<menuitem id="menu_activity_action" name="Disciplines" parent="menu_gym_config" action="action_gym_activity" sequence="10"/>
+	<menuitem id="menu_equipment_action" name="Outils" parent="menu_gym_config" action="action_gym_equipment" sequence="20"/>
+	<menuitem id="menu_objective_action" name="Objectifs" parent="menu_gym_config" action="action_gym_objective" sequence="30"/>
+	<menuitem id="menu_practice_level_action" name="Niveaux de Pratique" parent="menu_gym_config" action="action_gym_practice_level" sequence="40"/>
+</odoo>

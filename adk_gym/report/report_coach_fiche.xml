@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="action_report_coach_fiche" model="ir.actions.report">
+		<field name="name">Fiche Coach</field>
+		<field name="model">adk.gym.coach</field>
+		<field name="report_type">qweb-pdf</field>
+		<field name="report_name">adk_gym.report_coach_fiche_view</field>
+		<field name="report_file">adk_gym.report_coach_fiche_view</field>
+		<field name="print_report_name">'Fiche_Coach_%s' % (object.name)</field>
+		<field name="binding_model_id" ref="model_adk_gym_coach"/>
+		<field name="binding_type">report</field>
+	</record>
+
+	<template id="report_coach_fiche_view">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.external_layout">
+					<div class="page" style="font-family: 'Helvetica', sans-serif; color: #2c3e50;">
+
+						<!-- ==================== EN-TÊTE ==================== -->
+						<div style="background-color: #2c3e50; color: #fff; padding: 24px 28px; border-radius: 6px; margin-bottom: 22px;">
+							<div class="row">
+								<div class="col-8">
+									<span style="letter-spacing: 2px; font-size: 0.75em; text-transform: uppercase; color: #1cc88a; font-weight: bold;">Fiche Coach</span>
+									<h1 style="margin: 4px 0 6px 0; font-weight: 700; font-size: 1.8em; color: #ffffff;">
+										<span t-field="o.name"/>
+									</h1>
+									<div style="font-size: 1.05em; color: #d6dce5;">
+										<span t-if="o.specialty" t-field="o.specialty"/>
+										<span t-if="not o.specialty">Coach Sportif</span>
+										<t t-if="o.experience_years">
+											&#160;&#8226;&#160;<span t-field="o.experience_years"/> ans d'expérience
+										</t>
+									</div>
+									<div style="margin-top: 10px;">
+										<span style="background-color: #1cc88a; color: #fff; padding: 4px 12px; border-radius: 12px; font-size: 0.85em; font-weight: 600;">
+											<t t-if="o.availability == 'available'">Disponible</t>
+											<t t-if="o.availability == 'busy'">Occupé</t>
+											<t t-if="o.availability == 'leave'">En congé</t>
+										</span>
+									</div>
+								</div>
+								<div class="col-4 text-right">
+									<div style="border: 3px solid #1cc88a; border-radius: 6px; width: 110px; height: 120px; float: right; padding: 2px; background-color: #fff;">
+										<img t-if="o.image_1920" t-att-src="image_data_uri(o.image_1920)" style="width: 100%; height: 100%; object-fit: cover; border-radius: 3px;"/>
+										<div t-if="not o.image_1920" style="text-align: center; padding-top: 45px; color: #ccc;">PHOTO</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- ==================== INFORMATIONS PERSONNELLES ==================== -->
+						<div style="border-left: 4px solid #4e73df; padding-left: 10px; margin-bottom: 10px;">
+							<span style="text-transform: uppercase; letter-spacing: 1px; font-weight: bold; color: #4e73df; font-size: 0.9em;">Informations Personnelles</span>
+						</div>
+						<div class="row mb-3">
+							<div class="col-6">
+								<table style="width: 100%; font-size: 0.95em;">
+									<tr>
+										<td style="padding: 3px 0; color: #6c757d; width: 45%;">Date de naissance</td>
+										<td style="padding: 3px 0; font-weight: 600;"><span t-field="o.dob"/></td>
+									</tr>
+									<tr>
+										<td style="padding: 3px 0; color: #6c757d;">Âge</td>
+										<td style="padding: 3px 0; font-weight: 600;"><span t-field="o.age"/> ans</td>
+									</tr>
+									<tr>
+										<td style="padding: 3px 0; color: #6c757d;">Lieu de naissance</td>
+										<td style="padding: 3px 0; font-weight: 600;"><span t-field="o.place_of_birth"/></td>
+									</tr>
+									<tr>
+										<td style="padding: 3px 0; color: #6c757d;">Genre</td>
+										<td style="padding: 3px 0; font-weight: 600;">
+											<t t-if="o.gender == 'm'">Homme</t>
+											<t t-if="o.gender == 'f'">Femme</t>
+											<t t-if="o.gender == 'o'">Autre</t>
+										</td>
+									</tr>
+								</table>
+							</div>
+							<div class="col-6">
+								<table style="width: 100%; font-size: 0.95em;">
+									<tr>
+										<td style="padding: 3px 0; color: #6c757d; width: 45%;">Téléphone</td>
+										<td style="padding: 3px 0; font-weight: 600;"><span t-field="o.phone"/></td>
+									</tr>
+									<tr>
+										<td style="padding: 3px 0; color: #6c757d;">Email</td>
+										<td style="padding: 3px 0; font-weight: 600;"><span t-field="o.email"/></td>
+									</tr>
+									<tr>
+										<td style="padding: 3px 0; color: #6c757d;">Localisation</td>
+										<td style="padding: 3px 0; font-weight: 600;"><span t-field="o.localisation"/></td>
+									</tr>
+									<tr>
+										<td style="padding: 3px 0; color: #6c757d;">Diplôme / Certification</td>
+										<td style="padding: 3px 0; font-weight: 600;"><span t-field="o.qualification"/></td>
+									</tr>
+								</table>
+							</div>
+						</div>
+
+						<!-- ==================== INDICATEURS ==================== -->
+						<div class="row mb-4" style="margin-top: 10px;">
+							<div class="col-4 text-center">
+								<div style="border: 1px solid #e3e6f0; border-radius: 6px; padding: 12px; background-color: #f8f9fc;">
+									<div style="font-size: 1.6em; font-weight: 700; color: #4e73df;"><span t-field="o.member_count"/></div>
+									<div style="font-size: 0.8em; text-transform: uppercase; color: #6c757d; letter-spacing: 0.5px;">Membres suivis</div>
+								</div>
+							</div>
+							<div class="col-4 text-center">
+								<div style="border: 1px solid #e3e6f0; border-radius: 6px; padding: 12px; background-color: #f8f9fc;">
+									<div style="font-size: 1.6em; font-weight: 700; color: #1cc88a;"><span t-field="o.program_count"/></div>
+									<div style="font-size: 0.8em; text-transform: uppercase; color: #6c757d; letter-spacing: 0.5px;">Programmes encadrés</div>
+								</div>
+							</div>
+							<div class="col-4 text-center">
+								<div style="border: 1px solid #e3e6f0; border-radius: 6px; padding: 12px; background-color: #f8f9fc;">
+									<div style="font-size: 1.6em; font-weight: 700; color: #f6c23e;"><span t-field="o.experience_years"/></div>
+									<div style="font-size: 0.8em; text-transform: uppercase; color: #6c757d; letter-spacing: 0.5px;">Années d'expérience</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- ==================== BIOGRAPHIE ==================== -->
+						<t t-if="o.bio">
+							<div style="border-left: 4px solid #4e73df; padding-left: 10px; margin-bottom: 10px;">
+								<span style="text-transform: uppercase; letter-spacing: 1px; font-weight: bold; color: #4e73df; font-size: 0.9em;">Présentation</span>
+							</div>
+							<p style="font-size: 0.95em; color: #495057; margin-bottom: 20px;"><span t-field="o.bio"/></p>
+						</t>
+
+						<!-- ==================== SALLES D'INTERVENTION ==================== -->
+						<t t-if="o.salle_ids">
+							<div style="border-left: 4px solid #4e73df; padding-left: 10px; margin-bottom: 10px;">
+								<span style="text-transform: uppercase; letter-spacing: 1px; font-weight: bold; color: #4e73df; font-size: 0.9em;">Salles d'intervention</span>
+							</div>
+							<p style="margin-bottom: 20px;">
+								<t t-foreach="o.salle_ids" t-as="s">
+									<span style="background-color: #eef1fb; color: #4e73df; padding: 4px 10px; border-radius: 10px; font-size: 0.85em; margin-right: 6px; display: inline-block; margin-bottom: 4px;">
+										<span t-field="s.name"/>
+									</span>
+								</t>
+							</p>
+						</t>
+
+						<!-- ==================== MEMBRES SUIVIS ==================== -->
+						<t t-if="o.member_ids">
+							<div style="background-color: #2c3e50; color: #fff; padding: 6px 10px; margin-bottom: 0; font-weight: 600; font-size: 0.9em; border-radius: 4px 4px 0 0;">MEMBRES SUIVIS</div>
+							<table class="table table-sm table-bordered" style="width: 100%; font-size: 0.88em; margin-top: 0;">
+								<thead>
+									<tr style="background-color: #f2f2f2;">
+										<th>Nom</th>
+										<th>Téléphone</th>
+										<th>Niveau de pratique</th>
+										<th>Statut</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr t-foreach="o.member_ids" t-as="m">
+										<td><span t-field="m.name"/></td>
+										<td><span t-field="m.phone"/></td>
+										<td><span t-field="m.practice_level_id.name"/></td>
+										<td>
+											<t t-if="m.membership_status == 'active'">Actif</t>
+											<t t-if="m.membership_status == 'expired'">Expiré</t>
+											<t t-if="m.membership_status == 'none'">Aucun abonnement</t>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</t>
+
+						<!-- ==================== PROGRAMMES ENCADRÉS ==================== -->
+						<t t-if="o.program_ids">
+							<div style="background-color: #2c3e50; color: #fff; padding: 6px 10px; margin-top: 20px; margin-bottom: 0; font-weight: 600; font-size: 0.9em; border-radius: 4px 4px 0 0;">PROGRAMMES ENCADRÉS</div>
+							<table class="table table-sm table-bordered" style="width: 100%; font-size: 0.88em; margin-top: 0;">
+								<thead>
+									<tr style="background-color: #f2f2f2;">
+										<th>Programme</th>
+										<th>Membres</th>
+										<th>Objectif</th>
+										<th>Début</th>
+										<th>État</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr t-foreach="o.program_ids" t-as="p">
+										<td><span t-field="p.name"/></td>
+										<td>
+											<t t-foreach="p.member_ids" t-as="pm"><span t-field="pm.name"/><t t-if="not pm_last">, </t></t>
+										</td>
+										<td><t t-foreach="p.goal_ids" t-as="g"><span t-field="g.name"/><t t-if="not g_last">, </t></t><t t-if="not p.goal_ids">—</t></td>
+										<td><span t-field="p.date_start"/></td>
+										<td>
+											<t t-if="p.state == 'draft'">Brouillon</t>
+											<t t-if="p.state == 'in_progress'">En cours</t>
+											<t t-if="p.state == 'done'">Terminé</t>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</t>
+
+						<!-- ==================== PIED DE PAGE / SIGNATURE ==================== -->
+						<div class="row" style="margin-top: 50px;">
+							<div class="col-6 text-center">
+								<div style="border-top: 1px solid #000; width: 200px; margin: 0 auto; padding-top: 5px;">Signature du Coach</div>
+							</div>
+							<div class="col-6 text-center">
+								<div style="border-top: 1px solid #000; width: 200px; margin: 0 auto; padding-top: 5px;">Cachet Direction</div>
+							</div>
+						</div>
+					</div>
+				</t>
+			</t>
+		</t>
+	</template>
+</odoo>

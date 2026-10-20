@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- ========================================================== -->
+	<!-- ACTION -->
+	<!-- ========================================================== -->
+	<record id="action_gym_subscription" model="ir.actions.act_window">
+		<field name="name">Abonnements</field>
+		<field name="res_model">adk.gym.subscription</field>
+		<field name="view_mode">kanban,list,form</field>
+		<field name="context">{'search_default_filter_active': 1}</field>
+		<field name="help" type="html">
+			<p class="o_view_nocontent_smiling_face">Créez un nouvel abonnement</p>
+		</field>
+	</record>
+
+	<!-- ========================================================== -->
+	<!-- KANBAN (utilise le champ color déjà calculé dans le modèle) -->
+	<!-- ========================================================== -->
+	<record id="view_gym_subscription_kanban" model="ir.ui.view">
+		<field name="name">adk.gym.subscription.kanban</field>
+		<field name="model">adk.gym.subscription</field>
+		<field name="arch" type="xml">
+			<kanban class="o_kanban_small_column" sample="1" default_group_by="state">
+				<field name="id"/>
+				<field name="name"/>
+				<field name="member_id"/>
+				<field name="type"/>
+				<field name="date_end"/>
+				<field name="total_amount"/>
+				<field name="state"/>
+				<field name="days_remaining"/>
+				<field name="color"/>
+				<templates>
+					<t t-name="kanban-box">
+						<div t-attf-class="oe_kanban_global_click oe_kanban_card #{kanban_color(record.color.raw_value)}">
+							<div class="o_kanban_record_top">
+								<div class="o_kanban_record_headings">
+									<strong class="o_kanban_record_title">
+										<field name="name"/>
+									</strong>
+								</div>
+							</div>
+							<div class="o_kanban_record_body">
+								<field name="member_id"/><br/>
+								<span class="badge text-bg-light">
+									<field name="type"/>
+								</span>
+							</div>
+							<div class="o_kanban_record_bottom mt-2">
+								<div class="oe_kanban_bottom_left">
+									<field name="total_amount" widget="monetary"/>
+								</div>
+								<div class="oe_kanban_bottom_right">
+									<span t-if="record.state.raw_value == 'active'" class="badge rounded-pill text-bg-success">
+										<field name="days_remaining"/> j restants
+									</span>
+									<span t-elif="record.state.raw_value == 'expired'" class="badge rounded-pill text-bg-danger">Expiré</span>
+									<span t-elif="record.state.raw_value == 'cancelled'" class="badge rounded-pill text-bg-secondary">Annulé</span>
+									<span t-else="" class="badge rounded-pill text-bg-warning">Brouillon</span>
+								</div>
+							</div>
+						</div>
+					</t>
+				</templates>
+			</kanban>
+		</field>
+	</record>
+
+	<!-- ========================================================== -->
+	<!-- LIST -->
+	<!-- ========================================================== -->
+	<record id="view_gym_subscription_list" model="ir.ui.view">
+		<field name="name">adk.gym.subscription.list</field>
+		<field name="model">adk.gym.subscription</field>
+		<field name="arch" type="xml">
+			<list string="Abonnements" sample="1" decoration-success="state == 'active'" decoration-danger="state == 'expired'" decoration-muted="state == 'cancelled'">
+				<field name="name"/>
+				<field name="member_id"/>
+				<field name="discipline_ids" widget="many2many_tags" optional="show"/>
+				<field name="coach_id" optional="hide"/>
+				<field name="type"/>
+				<field name="date_start"/>
+				<field name="date_end"/>
+				<field name="total_amount" sum="Total"/>
+				<field name="state" widget="badge" decoration-success="state == 'active'" decoration-danger="state == 'expired'" decoration-muted="state == 'cancelled'"/>
+			</list>
+		</field>
+	</record>
+
+	<!-- ========================================================== -->
+	<!-- FORM -->
+	<!-- ========================================================== -->
+	<record id="view_gym_subscription_form" model="ir.ui.view">
+		<field name="name">adk.gym.subscription.form</field>
+		<field name="model">adk.gym.subscription</field>
+		<field name="arch" type="xml">
+			<form>
+				<header>
+					<button name="action_confirm" string="Confirmer" type="object" class="oe_highlight" invisible="state != 'draft'"/>
+					<button name="action_create_invoice" string="Créer Facture" type="object" class="btn-primary" invisible="state != 'active' or invoice_id != False"/>
+					<button name="action_renew" string="Renouveler" type="object" invisible="state != 'expired'"/>
+					<button name="action_cancel" string="Annuler" type="object" invisible="state not in ('draft', 'expired')" confirm="Confirmez-vous l'annulation de cet abonnement ?"/>
+					<button name="%(adk_gym.action_report_subscription_list)d" string="Imprimer Contrat" type="action" class="btn-secondary"/>
+					<field name="state" widget="statusbar" statusbar_visible="draft,active,expired"/>
+				</header>
+				<sheet>
+					<div class="oe_button_box" name="button_box">
+						<button name="action_view_invoice" type="object" class="oe_stat_button" icon="fa-file-text-o" invisible="not invoice_id">
+							<div class="o_stat_info">
+								<span class="o_stat_text">Facture</span>
+							</div>
+						</button>
+					</div>
+					<div class="oe_title">
+						<h1>
+							<field name="name"/>
+						</h1>
+					</div>
+					<group>
+						<group string="Client">
+							<field name="member_id" options="{'no_create': False, 'no_open': False}"/>
+							<field name="discipline_ids" widget="many2many_tags" options="{'no_create': False}"/>
+							<field name="coach_id" options="{'no_create': False, 'no_open': False}"/>
+							<field name="salle_id" options="{'no_create': False}"/>
+						</group>
+						<group string="Validité">
+							<field name="type"/>
+							<field name="date_start"/>
+							<field name="date_end" force_save="1"/>
+							<field name="days_remaining" readonly="1" invisible="state != 'active'"/>
+						</group>
+						<group string="Facturation">
+							<field name="is_gym_manager" invisible="1"/>
+							<field name="price" readonly="not is_gym_manager"/>
+							<field name="discount" readonly="not is_gym_manager"/>
+							<field name="price_after_discount"/>
+							<field name="total_amount"/>
+							<field name="invoice_id" readonly="1"/>
+							<field name="invoice_state" readonly="1" invisible="not invoice_id"/>
+						</group>
+					</group>
+					<notebook>
+						<page string="Produits Additionnels">
+							<field name="product_line_ids">
+								<list editable="bottom">
+									<field name="product_id" options="{'no_create': False}"/>
+									<field name="quantity"/>
+									<field name="price_unit"/>
+									<field name="subtotal"/>
+								</list>
+							</field>
+							<group class="oe_subtotal_footer oe_right">
+								<field name="total_amount" class="oe_subtotal_footer_separator"/>
+							</group>
+						</page>
+						<page string="Notes">
+							<field name="notes" placeholder="Remarques internes..."/>
+						</page>
+					</notebook>
+				</sheet>
+				<chatter/>
+			</form>
+		</field>
+	</record>
+
+	<!-- ========================================================== -->
+	<!-- SEARCH -->
+	<!-- ========================================================== -->
+	<record id="view_gym_subscription_search" model="ir.ui.view">
+		<field name="name">adk.gym.subscription.search</field>
+		<field name="model">adk.gym.subscription</field>
+		<field name="arch" type="xml">
+			<search>
+				<field name="name"/>
+				<field name="member_id"/>
+				<field name="coach_id"/>
+				<field name="discipline_ids"/>
+				<field name="salle_id"/>
+				<filter string="Brouillon" name="filter_draft" domain="[('state', '=', 'draft')]"/>
+				<filter string="Actifs" name="filter_active" domain="[('state', '=', 'active')]"/>
+				<filter string="Expirés" name="filter_expired" domain="[('state', '=', 'expired')]"/>
+				<filter string="Annulés" name="filter_cancelled" domain="[('state', '=', 'cancelled')]"/>
+				<separator/>
+				<filter string="Expire sous 7 jours" name="filter_expiring_soon" domain="[('state', '=', 'active'), ('date_end', '&lt;=', (context_today() + relativedelta(days=7)).strftime('%Y-%m-%d')), ('date_end', '&gt;=', context_today().strftime('%Y-%m-%d'))]"/>
+				<filter string="Ce mois-ci" name="filter_this_month" domain="[('date_start', '&gt;=', context_today().strftime('%Y-%m-01'))]"/>
+				<group expand="0" string="Grouper par">
+					<filter string="État" name="group_by_state" context="{'group_by': 'state'}"/>
+					<filter string="Discipline" name="group_by_activity" context="{'group_by': 'discipline_ids'}"/>
+					<filter string="Coach" name="group_by_coach" context="{'group_by': 'coach_id'}"/>
+					<filter string="Salle" name="group_by_salle" context="{'group_by': 'salle_id'}"/>
+					<filter string="Type" name="group_by_type" context="{'group_by': 'type'}"/>
+					<filter string="Mois de début" name="group_by_month" context="{'group_by': 'date_start:month'}"/>
+				</group>
+			</search>
+		</field>
+	</record>
+
+	<!-- ========================================================== -->
+	<!-- GRAPH / PIVOT (Analyses) -->
+	<!-- ========================================================== -->
+	<record id="view_gym_subscription_graph" model="ir.ui.view">
+		<field name="name">adk.gym.subscription.graph</field>
+		<field name="model">adk.gym.subscription</field>
+		<field name="arch" type="xml">
+			<graph string="Analyses des Abonnements" type="bar" sample="1">
+				<field name="discipline_ids"/>
+				<field name="total_amount" type="measure"/>
+			</graph>
+		</field>
+	</record>
+
+	<record id="view_gym_subscription_pivot" model="ir.ui.view">
+		<field name="name">adk.gym.subscription.pivot</field>
+		<field name="model">adk.gym.subscription</field>
+		<field name="arch" type="xml">
+			<pivot string="Analyses des Abonnements" sample="1">
+				<field name="discipline_ids" type="row"/>
+				<field name="date_start" interval="month" type="col"/>
+				<field name="total_amount" type="measure"/>
+			</pivot>
+		</field>
+	</record>
+
+	<record id="action_gym_subscription_analysis" model="ir.actions.act_window">
+		<field name="name">Analyses des Abonnements</field>
+		<field name="res_model">adk.gym.subscription</field>
+		<field name="view_mode">graph,pivot</field>
+		<field name="context">{'search_default_filter_active': 1}</field>
+	</record>
+</odoo>

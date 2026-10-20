@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Catégorie module -->
+	<record id="module_category_gym" model="ir.module.category">
+		<field name="name">Gestion Gym ADK</field>
+		<field name="description">Contrôle d'accès pour le système ADK GYM</field>
+		<field name="sequence">10</field>
+	</record>
+
+	<!-- Groupe Utilisateur -->
+	<record id="group_gym_user" model="res.groups">
+		<field name="name">Utilisateur Gym</field>
+		<field name="category_id" ref="module_category_gym"/>
+		<field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+		<field name="comment">Peut consulter et créer des membres et abonnements. Ne peut pas supprimer.</field>
+	</record>
+
+	<!-- Groupe Responsable -->
+	<record id="group_gym_manager" model="res.groups">
+		<field name="name">Responsable Gym</field>
+		<field name="category_id" ref="module_category_gym"/>
+		<field name="implied_ids" eval="[(4, ref('group_gym_user'))]"/>
+		<field name="comment">Peut gérer coachs, salles, configuration et créer des factures.</field>
+	</record>
+
+	<!-- Groupe Administrateur -->
+	<record id="group_gym_admin" model="res.groups">
+		<field name="name">Administrateur Gym</field>
+		<field name="category_id" ref="module_category_gym"/>
+		<field name="implied_ids" eval="[(4, ref('group_gym_manager'))]"/>
+		<field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+		<field name="comment">Accès complet à tous les paramètres.</field>
+	</record>
+</odoo>

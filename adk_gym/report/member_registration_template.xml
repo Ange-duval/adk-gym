@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="action_report_registration_form" model="ir.actions.report">
+		<field name="name">Fiche d'Inscription</field>
+		<field name="model">adk.gym.member</field>
+		<field name="report_type">qweb-pdf</field>
+		<field name="report_name">adk_gym.report_registration_form_view</field>
+		<field name="report_file">adk_gym.report_registration_form_view</field>
+		<field name="print_report_name">'Fiche_Inscription_%s' % (object.name)</field>
+		<field name="binding_model_id" ref="model_adk_gym_member"/>
+		<field name="binding_type">report</field>
+	</record>
+
+	<record id="action_report_gym_salle_fiche" model="ir.actions.report">
+		<field name="name">Fiche de la Salle</field>
+		<field name="model">adk.gym.salle</field>
+		<field name="report_type">qweb-pdf</field>
+		<field name="report_name">adk_gym.report_salle_view</field>
+		<field name="report_file">adk_gym.report_salle_view</field>
+		<field name="binding_model_id" ref="model_adk_gym_salle"/>
+		<field name="binding_type">report</field>
+	</record>
+
+	<template id="report_registration_form_view">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.external_layout">
+					<div class="page" style="font-family: 'Helvetica', sans-serif; color: #333;">
+						<div class="row mb-4" style="border-bottom: 2px solid #000; padding-bottom: 10px;">
+							<div class="col-3"></div>
+							<div class="col-6 text-center">
+								<h2 style="text-transform: uppercase; font-weight: bold; margin-top: 20px;">Fiche d'Inscription</h2>
+								<span class="badge badge-pill badge-dark" style="font-size: 1.1em; padding: 5px 15px;">
+									<t t-esc="res_company.name"/>
+								</span>
+								<br/>
+								<strong t-if="o.salle_id">
+									<span t-field="o.salle_id.name"/>
+								</strong>
+							</div>
+							<div class="col-3 text-right">
+								<div style="border: 1px solid #ccc; width: 100px; height: 110px; float: right; padding: 2px;">
+									<img t-if="o.image_1920" t-att-src="image_data_uri(o.image_1920)" style="width: 100%; height: 100%; object-fit: cover;"/>
+									<div t-if="not o.image_1920" style="text-align: center; padding-top: 30px; color: #ccc;">PHOTO</div>
+								</div>
+							</div>
+						</div>
+
+						<div style="background-color: #f2f2f2; padding: 5px 10px; font-weight: bold; margin-bottom: 15px;">I. INFORMATIONS PERSONNELLES</div>
+						<div class="row">
+							<div class="col-6">
+								<p>
+									<strong>Nom Complet :</strong>
+									<span t-field="o.name"/>
+								</p>
+								<p>
+									<strong>Date de Naissance :</strong>
+									<span t-field="o.dob"/>
+								</p>
+								<p>
+									<strong>Lieu de Naissance :</strong>
+									<span t-field="o.place_of_birth"/>
+								</p>
+								<p>
+									<strong>Âge :</strong> <span t-field="o.age"/> ans
+								</p>
+							</div>
+							<div class="col-6">
+								<p>
+									<strong>Téléphone :</strong>
+									<span t-field="o.phone"/>
+								</p>
+								<p>
+									<strong>Email :</strong>
+									<span t-field="o.email"/>
+								</p>
+								<p>
+									<strong>Localisation :</strong>
+									<span t-field="o.localisation"/>
+								</p>
+								<p>
+									<strong>Niveau de Pratique :</strong>
+									<span t-field="o.practice_level_id.name"/>
+								</p>
+							</div>
+						</div>
+
+						<div style="background-color: #f2f2f2; padding: 5px 10px; font-weight: bold; margin-top: 20px; margin-bottom: 15px;">II. DONNÉES PHYSIQUES &amp; ÉTAT DE SANTÉ</div>
+						<div class="row mb-3">
+							<div class="col-4 text-center">
+								<div style="border: 1px solid #ddd; padding: 10px;">
+									<small>TAILLE</small>
+									<br/>
+									<strong style="font-size: 1.2em;">
+										<span t-field="o.taille"/> cm
+									</strong>
+								</div>
+							</div>
+							<div class="col-4 text-center">
+								<div style="border: 1px solid #ddd; padding: 10px;">
+									<small>POIDS</small>
+									<br/>
+									<strong style="font-size: 1.2em;">
+										<span t-field="o.poids"/> kg
+									</strong>
+								</div>
+							</div>
+							<div class="col-4 text-center">
+								<div style="border: 1px solid #ddd; padding: 10px;">
+									<small>OBJECTIF PRINCIPAL</small>
+									<br/>
+									<strong style="font-size: 1.2em;">
+										<t t-foreach="o.objective_ids" t-as="obj"><span t-field="obj.name"/><t t-if="not obj_last">, </t></t>
+										<t t-if="not o.objective_ids">—</t>
+									</strong>
+								</div>
+							</div>
+						</div>
+
+						<div t-if="o.has_medical_condition == 'oui'" style="margin-top: 10px; padding: 10px; border-left: 4px solid #ff0000; background-color: #fffafa;">
+							<strong style="color: #ff0000;">Détails médicaux :</strong>
+							<span t-field="o.medical_details"/>
+						</div>
+
+						<table class="table table-sm table-bordered" style="width: 100%; font-size: 0.9em;">
+							<thead>
+								<tr style="background-color: #eee;">
+									<th>Période</th>
+									<th>Salles</th>
+									<th>Discipline/Suivi</th>
+									<th>Type</th>
+									<th class="text-right">Prix</th>
+								</tr>
+							</thead>
+							<tbody>
+								<t t-foreach="o.subscription_ids" t-as="sub">
+									<tr>
+										<td>
+											Du <span t-field="sub.date_start" t-options='{"widget": "date"}'/> au <span t-field="sub.date_end" t-options='{"widget": "date"}'/>
+										</td>
+										<td>
+											<span t-field="o.salle_id.name"/>
+										</td>
+										<td>
+											<t t-esc="', '.join(sub.discipline_ids.mapped('name')) or '—'"/>
+										</td>
+										<td>
+											<span t-field="sub.type"/>
+										</td>
+										<td class="text-right">
+											<span t-field="sub.total_amount" t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+										</td>
+									</tr>
+								</t>
+							</tbody>
+						</table>
+
+
+
+
+
+						<div class="row" style="margin-top: 50px;">
+							<div class="col-6 text-center">
+								<div style="border-top: 1px solid #000; width: 200px; margin: 0 auto; padding-top: 5px;">Signature du Membre</div>
+							</div>
+							<div class="col-6 text-center">
+								<div style="border-top: 1px solid #000; width: 200px; margin: 0 auto; padding-top: 5px;">Cachet Direction</div>
+							</div>
+						</div>
+					</div>
+				</t>
+			</t>
+		</t>
+	</template>
+
+	<template id="report_salle_view">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.external_layout">
+					<t t-set="subs" t-value="env['adk.gym.subscription'].search([('salle_id', '=', o.id)], order='date_start desc')"/>
+					<div class="page" style="font-family: 'Helvetica', sans-serif; color: #333;">
+
+						<!-- ── En-tête : titre + statut de la salle ───────────────────── -->
+						<div class="row mb-3" style="border-bottom: 2px solid #6d28d9; padding-bottom: 12px;">
+							<div class="col-9">
+								<h2 style="text-transform: uppercase; font-weight: bold; color: #2d1b3d; margin-bottom: 2px;">
+									Fiche Technique : Salle de Sport
+								</h2>
+								<span style="color: #6d28d9; font-weight: 600;" t-field="o.name"/>
+							</div>
+							<div class="col-3 text-right">
+								<span t-if="o.active" class="badge" style="background-color: #dcfce7; color: #15803d; padding: 6px 14px; font-size: 0.95em;">Active</span>
+								<span t-if="not o.active" class="badge" style="background-color: #fee2e2; color: #b91c1c; padding: 6px 14px; font-size: 0.95em;">Inactive</span>
+							</div>
+						</div>
+
+						<!-- ── Informations générales ──────────────────────────────────── -->
+						<div class="row mb-4" style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 14px 18px; background-color: #fafafa;">
+							<div class="col-6">
+								<p style="margin-bottom: 8px;">
+									<strong>Localisation :</strong><br/>
+									<t t-if="o.district"><span t-field="o.district"/>, </t>
+									<span t-field="o.city"/>
+									<t t-if="o.country_id"> — <span t-field="o.country_id.name"/></t>
+									<t t-if="not o.city and not o.district and not o.country_id">—</t>
+								</p>
+								<p style="margin-bottom: 0;">
+									<strong>Contact :</strong><br/>
+									<span t-field="o.phone"/>
+									<t t-if="o.email"> · <span t-field="o.email"/></t>
+								</p>
+							</div>
+							<div class="col-6">
+								<p style="margin-bottom: 0;">
+									<strong>Horaires d'ouverture :</strong><br/>
+									<span t-field="o.opening_hours_display"/>
+								</p>
+							</div>
+						</div>
+
+						<!-- ── Abonnements des clients ─────────────────────────────────── -->
+						<div style="background-color: #2d1b3d; color: #fff; padding: 6px 10px; border-radius: 4px 4px 0 0; margin-bottom: 0; font-weight: bold;">
+							Abonnements des Clients
+						</div>
+						<table class="table table-sm table-bordered" style="font-size: 0.85em;">
+							<thead>
+								<tr style="background-color: #f2f2f2;">
+									<th>Nom du client</th>
+									<th>Téléphone</th>
+									<th>Localisation</th>
+									<th>Abonnement</th>
+									<th>Période</th>
+									<th class="text-right">Montant</th>
+									<th>Statut</th>
+								</tr>
+							</thead>
+							<tbody>
+								<t t-foreach="subs" t-as="sub">
+									<tr>
+										<td><span t-field="sub.member_id.name"/></td>
+										<td><span t-field="sub.member_id.phone"/></td>
+										<td><span t-field="sub.member_id.localisation"/></td>
+										<td>
+											<span t-esc="sub.get_type_label()"/>
+											<t t-if="sub.discipline_ids"> — <t t-esc="', '.join(sub.discipline_ids.mapped('name'))"/></t>
+										</td>
+										<td>
+											<span t-field="sub.date_start" t-options='{"widget": "date"}'/> -
+											<span t-field="sub.date_end" t-options='{"widget": "date"}'/>
+										</td>
+										<td class="text-right">
+											<span t-field="sub.total_amount" t-options='{"widget": "monetary", "display_currency": res_company.currency_id}'/>
+										</td>
+										<td>
+											<span t-if="sub.state == 'active'" class="badge" style="background-color: #dcfce7; color: #15803d;">En cours</span>
+											<span t-if="sub.state == 'expired'" class="badge" style="background-color: #e2e8f0; color: #475569;">Terminé</span>
+											<span t-if="sub.state == 'draft'" class="badge" style="background-color: #e0f2fe; color: #0369a1;">Brouillon</span>
+											<span t-if="sub.state == 'cancelled'" class="badge" style="background-color: #fee2e2; color: #b91c1c;">Annulé</span>
+										</td>
+									</tr>
+								</t>
+								<tr t-if="not subs">
+									<td colspan="7" class="text-center text-muted">Aucun abonnement enregistré pour cette salle.</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<!-- ── Coachs de la salle ──────────────────────────────────────── -->
+						<div style="background-color: #2d1b3d; color: #fff; padding: 6px 10px; border-radius: 4px 4px 0 0; margin-top: 22px; margin-bottom: 0; font-weight: bold;">
+							Coachs de la Salle
+						</div>
+						<table class="table table-sm table-bordered" style="font-size: 0.85em;">
+							<thead>
+								<tr style="background-color: #f2f2f2;">
+									<th>Nom du coach</th>
+									<th>Spécialité</th>
+									<th>Téléphone</th>
+									<th>Localisation</th>
+									<th>Statut</th>
+								</tr>
+							</thead>
+							<tbody>
+								<t t-foreach="o.coach_ids" t-as="c">
+									<tr>
+										<td><span t-field="c.name"/></td>
+										<td><span t-field="c.specialty"/></td>
+										<td><span t-field="c.phone"/></td>
+										<td><span t-field="c.localisation"/></td>
+										<td>
+											<span t-if="c.availability == 'available'" class="badge" style="background-color: #dcfce7; color: #15803d;">Disponible</span>
+											<span t-if="c.availability == 'busy'" class="badge" style="background-color: #fef3c7; color: #b45309;">Occupé</span>
+											<span t-if="c.availability == 'leave'" class="badge" style="background-color: #e2e8f0; color: #475569;">En congé</span>
+										</td>
+									</tr>
+								</t>
+								<tr t-if="not o.coach_ids">
+									<td colspan="5" class="text-center text-muted">Aucun coach rattaché à cette salle.</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<!-- ── Inventaire des équipements ──────────────────────────────── -->
+						<div style="background-color: #2d1b3d; color: #fff; padding: 6px 10px; border-radius: 4px 4px 0 0; margin-top: 22px; margin-bottom: 0; font-weight: bold;">
+							Inventaire des Équipements
+						</div>
+						<table class="table table-sm table-bordered" style="font-size: 0.85em;">
+							<thead>
+								<tr style="background-color: #f2f2f2;">
+									<th>Équipement</th>
+									<th>Code</th>
+									<th>Quantité</th>
+									<th>État</th>
+								</tr>
+							</thead>
+							<tbody>
+								<t t-foreach="o.equipment_ids" t-as="e">
+									<tr>
+										<td>
+											<span t-field="e.equipment_id.name"/>
+										</td>
+										<td>
+											<span t-field="e.code"/>
+										</td>
+										<td>
+											<span t-field="e.quantity"/>
+										</td>
+										<td>
+											<span t-field="e.state"/>
+										</td>
+									</tr>
+								</t>
+								<tr t-if="not o.equipment_ids">
+									<td colspan="4" class="text-center text-muted">Aucun équipement enregistré pour cette salle.</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</t>
+			</t>
+		</t>
+	</template>
+</odoo>

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- ========================================================== -->
+	<!-- FORMAT PAPIER "CARTE" (dimensions type CNI : 85,6 x 54 mm)  -->
+	<!-- ========================================================== -->
+	<record id="paperformat_gym_pass" model="report.paperformat">
+		<field name="name">Format Pass Gym (CNI)</field>
+		<field name="default" eval="False"/>
+		<field name="format">custom</field>
+		<field name="page_height">54</field>
+		<field name="page_width">86</field>
+		<field name="orientation">Landscape</field>
+		<field name="margin_top">0</field>
+		<field name="margin_bottom">0</field>
+		<field name="margin_left">0</field>
+		<field name="margin_right">0</field>
+		<field name="header_spacing">0</field>
+		<field name="header_line" eval="False"/>
+		<field name="disable_shrinking" eval="True"/>
+		<field name="dpi">300</field>
+	</record>
+
+	<!-- ========================================================== -->
+	<!-- PASS MEMBRE -->
+	<!-- ========================================================== -->
+	<record id="action_report_member_pass" model="ir.actions.report">
+		<field name="name">Pass Membre (format carte)</field>
+		<field name="model">adk.gym.member</field>
+		<field name="report_type">qweb-pdf</field>
+		<field name="report_name">adk_gym.report_member_pass_view</field>
+		<field name="report_file">adk_gym.report_member_pass_view</field>
+		<field name="print_report_name">'Pass_%s' % (object.name)</field>
+		<field name="paperformat_id" ref="paperformat_gym_pass"/>
+		<field name="binding_model_id" ref="model_adk_gym_member"/>
+		<field name="binding_type">report</field>
+	</record>
+
+	<template id="report_member_pass_view">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.basic_layout">
+					<div style="width:86mm; height:54mm; box-sizing:border-box; font-family:'Helvetica',sans-serif; position:relative; overflow:hidden; border:0.3mm solid #dfe3e8;">
+						<!-- Bandeau -->
+						<table style="width:100%; border-collapse:collapse; background-color:#2c3e50;">
+							<tr>
+								<td style="padding:1.8mm 3mm; color:#fff; font-weight:700; font-size:8.5pt; letter-spacing:0.3px;">
+									<t t-esc="res_company.name or 'ADK GYM'"/>
+								</td>
+								<td style="padding:1.8mm 3mm; text-align:right;">
+									<span style="font-size:6pt; background-color:#1cc88a; color:#fff; padding:0.5mm 2mm; border-radius:2mm; text-transform:uppercase;">Pass Membre</span>
+								</td>
+							</tr>
+						</table>
+
+						<!-- Corps -->
+						<table style="width:100%; border-collapse:collapse; margin-top:2mm;">
+							<tr>
+								<td style="width:60mm; padding:0 2mm 0 3mm; vertical-align:top;">
+									<div style="font-size:10.5pt; font-weight:700; color:#2c3e50; line-height:1.15;">
+										<span t-field="o.name"/>
+									</div>
+									<div style="font-size:7pt; color:#6c757d; margin-top:1mm;">
+										<span t-field="o.salle_id.name"/>
+									</div>
+									<div style="font-size:7pt; color:#2c3e50; margin-top:2.5mm;">
+										<strong>Abonnement</strong><br/>
+										<t t-if="o.active_subscription_id">
+											Du <span t-field="o.active_subscription_id.date_start" t-options='{"widget": "date"}'/>
+											au <span t-field="o.active_subscription_id.date_end" t-options='{"widget": "date"}'/>
+										</t>
+										<t t-if="not o.active_subscription_id">
+											<span style="color:#e74a3b;">Aucun abonnement actif</span>
+										</t>
+									</div>
+								</td>
+								<td style="width:20mm; padding-right:3mm; vertical-align:top; text-align:right;">
+									<div style="display:inline-block; border:0.3mm solid #ddd; width:18mm; height:20mm; background-color:#f8f9fc;">
+										<img t-if="o.image_1920" t-att-src="image_data_uri(o.image_1920)" style="width:18mm; height:20mm; object-fit:cover;"/>
+									</div>
+								</td>
+							</tr>
+						</table>
+
+						<!-- Pied de carte -->
+						<table style="width:100%; border-collapse:collapse; position:absolute; bottom:1.5mm; left:0; right:0;">
+							<tr>
+								<td style="padding-left:3mm; font-size:6pt; color:#adb5bd;">N° <span t-field="o.id"/></td>
+								<td style="padding-right:3mm; text-align:right;">
+									<span style="font-size:5.5pt; color:#adb5bd; border:0.2mm dashed #ccc; border-radius:1mm; padding:0.8mm 3mm; display:inline-block; text-align:center;">
+										Cachet &amp; Signature<br/>Direction
+									</span>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</t>
+			</t>
+		</t>
+	</template>
+
+	<!-- ========================================================== -->
+	<!-- PASS COACH -->
+	<!-- ========================================================== -->
+	<record id="action_report_coach_pass" model="ir.actions.report">
+		<field name="name">Pass Coach (format carte)</field>
+		<field name="model">adk.gym.coach</field>
+		<field name="report_type">qweb-pdf</field>
+		<field name="report_name">adk_gym.report_coach_pass_view</field>
+		<field name="report_file">adk_gym.report_coach_pass_view</field>
+		<field name="print_report_name">'Pass_%s' % (object.name)</field>
+		<field name="paperformat_id" ref="paperformat_gym_pass"/>
+		<field name="binding_model_id" ref="model_adk_gym_coach"/>
+		<field name="binding_type">report</field>
+	</record>
+
+	<template id="report_coach_pass_view">
+		<t t-call="web.html_container">
+			<t t-foreach="docs" t-as="o">
+				<t t-call="web.basic_layout">
+					<div style="width:86mm; height:54mm; box-sizing:border-box; font-family:'Helvetica',sans-serif; position:relative; overflow:hidden; border:0.3mm solid #dfe3e8;">
+						<!-- Bandeau -->
+						<table style="width:100%; border-collapse:collapse; background-color:#1cc88a;">
+							<tr>
+								<td style="padding:1.8mm 3mm; color:#fff; font-weight:700; font-size:8.5pt; letter-spacing:0.3px;">
+									<t t-esc="res_company.name or 'ADK GYM'"/>
+								</td>
+								<td style="padding:1.8mm 3mm; text-align:right;">
+									<span style="font-size:6pt; background-color:#2c3e50; color:#fff; padding:0.5mm 2mm; border-radius:2mm; text-transform:uppercase;">Pass Coach</span>
+								</td>
+							</tr>
+						</table>
+
+						<!-- Corps -->
+						<table style="width:100%; border-collapse:collapse; margin-top:2mm;">
+							<tr>
+								<td style="width:60mm; padding:0 2mm 0 3mm; vertical-align:top;">
+									<div style="font-size:10.5pt; font-weight:700; color:#2c3e50; line-height:1.15;">
+										<span t-field="o.name"/>
+									</div>
+									<div style="font-size:7pt; color:#6c757d; margin-top:1mm;">
+										<t t-if="o.specialty"><span t-field="o.specialty"/></t>
+										<t t-if="not o.specialty">Coach Sportif</t>
+									</div>
+									<div style="font-size:7pt; color:#2c3e50; margin-top:2.5mm;">
+										<strong>Salle(s) d'intervention</strong><br/>
+										<t t-if="o.salle_ids">
+											<t t-foreach="o.salle_ids" t-as="s"><span t-field="s.name"/><t t-if="not s_last">, </t></t>
+										</t>
+										<t t-if="not o.salle_ids">—</t>
+									</div>
+								</td>
+								<td style="width:20mm; padding-right:3mm; vertical-align:top; text-align:right;">
+									<div style="display:inline-block; border:0.3mm solid #ddd; width:18mm; height:20mm; background-color:#f8f9fc;">
+										<img t-if="o.image_1920" t-att-src="image_data_uri(o.image_1920)" style="width:18mm; height:20mm; object-fit:cover;"/>
+									</div>
+								</td>
+							</tr>
+						</table>
+
+						<!-- Pied de carte -->
+						<table style="width:100%; border-collapse:collapse; position:absolute; bottom:1.5mm; left:0; right:0;">
+							<tr>
+								<td style="padding-left:3mm; font-size:6pt; color:#adb5bd;">N° <span t-field="o.id"/></td>
+								<td style="padding-right:3mm; text-align:right;">
+									<span style="font-size:5.5pt; color:#adb5bd; border:0.2mm dashed #ccc; border-radius:1mm; padding:0.8mm 3mm; display:inline-block; text-align:center;">
+										Cachet &amp; Signature<br/>Direction
+									</span>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</t>
+			</t>
+		</t>
+	</template>
+</odoo>

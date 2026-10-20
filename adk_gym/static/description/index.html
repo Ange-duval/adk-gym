@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>ADK Gym Management</title>
+</head>
+<body>
+
+    <div align="center">
+        <img src="banner.png" width="640" alt="ADK Gym Management"><br><br>
+        <img src="icon.png" width="56" height="56" alt="ADK"><br>
+        <h1>ADK Gym Management</h1>
+        <p>La solution tout-en-un pour g&eacute;rer votre salle de sport dans Odoo 18 : <b>membres, abonnements, facturation, coachs, programmes, salles, inventaire multi-salles et boutique</b>, avec un tableau de bord en temps r&eacute;el et des documents PDF pr&ecirc;ts &agrave; imprimer.</p>
+        <p><font size="2" color="#8a8189">Odoo 18 &nbsp;&middot;&nbsp; Community &amp; Enterprise &nbsp;&middot;&nbsp; Membres &nbsp;&middot;&nbsp; Abonnements &amp; factures &nbsp;&middot;&nbsp; Coachs &nbsp;&middot;&nbsp; Multi-salles &nbsp;&middot;&nbsp; Inventaire &nbsp;&middot;&nbsp; 7 documents PDF</font></p>
+    </div>
+
+    <hr>
+
+    <h2>Pourquoi ADK Gym Management&nbsp;?</h2>
+    <p>Un gérant de salle de sport jongle avec des cahiers d'inscription, des tableurs d'abonnements, des relances de paiement et un stock de mat&eacute;riel qu'on ne retrouve jamais. <b>ADK Gym Management</b> remplace tout cela par une seule application, int&eacute;gr&eacute;e &agrave; la comptabilit&eacute; d'Odoo, avec une interface soign&eacute;e que votre &eacute;quipe prend en main en quelques minutes.</p>
+    <ul>
+        <li><b>Inscrire en 2 minutes</b> : fiche compl&egrave;te avec photo, morphologie, IMC calcul&eacute; automatiquement, objectifs, niveau et contre-indications m&eacute;dicales</li>
+        <li><b>Ne plus rien oublier</b> : l'&eacute;tat de chaque abonnement est mis &agrave; jour automatiquement chaque nuit, les expirations &agrave; venir sont signal&eacute;es</li>
+        <li><b>Facturer sans ressaisie</b> : une facture client Odoo est cr&eacute;&eacute;e depuis l'abonnement, avec les produits de la boutique, et son statut de paiement remonte sur la fiche</li>
+        <li><b>Encadrer vraiment</b> : coachs, portefeuille de membres et programmes d'entra&icirc;nement d&eacute;taill&eacute;s, exercice par exercice</li>
+        <li><b>Piloter plusieurs salles</b> : un article de mat&eacute;riel partag&eacute; entre salles, avec sa propre quantit&eacute; et son propre &eacute;tat dans chacune</li>
+        <li><b>Imprimer des documents professionnels</b> : fiche d'inscription, pass membre, contrat, fiche coach, pass coach, fiche salle, rapport p&eacute;riodique</li>
+    </ul>
+
+    <h3>Pour qui&nbsp;?</h3>
+    <p>Salles de sport et de musculation, clubs de fitness, studios de yoga, de boxe ou de crossfit, centres de remise en forme, r&eacute;seaux de plusieurs salles : du g&eacute;rant ind&eacute;pendant &agrave; la cha&icirc;ne de clubs.</p>
+
+    <div align="center">
+        <img src="screenshots/dashboard.png" width="640" alt="Tableau de bord ADK Gym : membres actifs et expir&eacute;s, abonnements, coachs, salles, &eacute;quipements en panne, revenus">
+    </div>
+
+    <hr>
+
+    <h2>Tableau de bord en temps r&eacute;el</h2>
+    <p>D&egrave;s l'ouverture, le tableau de bord affiche l'&eacute;tat de votre activit&eacute;, sans aucune action &agrave; faire : il se rafra&icirc;chit seul toutes les 30 secondes.</p>
+    <ul>
+        <li><b>Membres</b> : membres actifs, membres expir&eacute;s, nouveaux inscrits du mois, abonnements qui expirent sous 7 jours</li>
+        <li><b>Structure &amp; inventaire</b> : nombre de coachs, de salles, d'&eacute;quipements en panne ou en maintenance, produits vendus</li>
+        <li><b>Finance</b> : revenu des abonnements actifs et revenu g&eacute;n&eacute;r&eacute; ce mois</li>
+        <li>Acc&egrave;s direct, en un clic, &agrave; la liste des membres actifs et des abonnements qui expirent</li>
+    </ul>
+
+    <hr>
+
+    <h2>Gestion des membres</h2>
+    <p>Chaque membre dispose d'une fiche compl&egrave;te et d'un historique. La vue Kanban donne, d'un coup d'&oelig;il, le visage, la salle, l'&acirc;ge, le num&eacute;ro d'abonnement et le statut (Actif, Expir&eacute;, Aucun abonnement).</p>
+    <div align="center">
+        <img src="screenshots/membres-kanban.png" width="640" alt="Vue Kanban des membres : photo, salle, &acirc;ge, abonnement et statut">
+    </div>
+    <div align="center">
+        <img src="screenshots/fiche-membre.png" width="640" alt="Fiche membre : identit&eacute;, morphologie, IMC, objectifs sportifs, niveau et historique des abonnements">
+    </div>
+
+    <ul>
+        <li><b>Identit&eacute; et contact</b> : photo, date de naissance (&acirc;ge calcul&eacute;), t&eacute;l&eacute;phone, e-mail, quartier, contact client li&eacute; pour la facturation</li>
+        <li><b>Morphologie</b> : taille, poids, <b>IMC et cat&eacute;gorie calcul&eacute;s automatiquement</b> (insuffisance pond&eacute;rale, normal, surpoids, ob&eacute;sit&eacute;)</li>
+        <li><b>Objectifs sportifs multiples</b> et <b>niveau de pratique</b></li>
+        <li><b>Sant&eacute;</b> : contre-indication m&eacute;dicale et d&eacute;tails, pour que les coachs adaptent l'entra&icirc;nement</li>
+        <li><b>Salle et coach personnel</b> rattach&eacute;s au membre</li>
+        <li>Contr&ocirc;les de coh&eacute;rence : date de naissance dans le futur ou &acirc;ge minimum de 5 ans refus&eacute;s</li>
+        <li>Historique complet des changements dans le chatter Odoo, archivage possible</li>
+    </ul>
+
+    <hr>
+
+    <h2>Abonnements et facturation</h2>
+    <p>Le coeur du module. On choisit le type d'abonnement : <b>journalier, mensuel, trimestriel, annuel ou sp&eacute;cial</b>. La date de fin et le prix sont calcul&eacute;s automatiquement.</p>
+    <div align="center">
+        <img src="diagrams/cycle-abonnement.png" width="640" alt="Cycle de vie d'un abonnement : Brouillon, Actif, Expir&eacute;">
+    </div>
+    <div align="center">
+        <img src="screenshots/abonnements-kanban.png" width="640" alt="Kanban des abonnements : jours restants, type et montant, couleurs d'alerte">
+    </div>
+    <div align="center">
+        <img src="screenshots/abonnements-liste.png" width="640" alt="Liste des abonnements avec membre, disciplines, dates et total">
+    </div>
+    <div align="center">
+        <img src="screenshots/abonnement.png" width="640" alt="Fiche d'abonnement : prix, remise, produits additionnels, facture li&eacute;e et statut de paiement">
+    </div>
+
+    <ul>
+        <li><b>Calcul automatique</b> des dates et du prix selon le type ; remise en pourcentage ; prix apr&egrave;s remise et total &agrave; payer</li>
+        <li><b>Disciplines multiples</b> par abonnement (musculation, cardio, yoga, boxe, crossfit, zumba&hellip;), coach responsable et salle</li>
+        <li><b>Produits additionnels</b> de la boutique (frais d'inscription, eau, prot&eacute;ines&hellip;) ajout&eacute;s au m&ecirc;me total</li>
+        <li><b>Couleurs d'alerte</b> en Kanban : vert, jaune &agrave; moins de 7 jours, rouge si expir&eacute;</li>
+        <li><b>Expiration automatique</b> par une t&acirc;che planifi&eacute;e quotidienne, avec trace dans l'historique</li>
+        <li><b>Renouvellement en un clic</b> : une fen&ecirc;tre reprend le membre, le forfait, le coach et les disciplines</li>
+        <li>Workflow s&eacute;curis&eacute; : un abonnement actif doit &ecirc;tre expir&eacute; avant d'&ecirc;tre annul&eacute;</li>
+        <li>Remise et modification du prix <b>r&eacute;serv&eacute;es au Responsable ou &agrave; l'Administrateur</b> : l'accueil voit le tarif standard sans pouvoir le surcharger</li>
+    </ul>
+    <div align="center">
+        <img src="screenshots/renouvellement.png" width="640" alt="Renouvellement d'un abonnement en un clic">
+    </div>
+
+    <h3>Facture Odoo native</h3>
+    <p>Depuis l'abonnement, le bouton de facturation cr&eacute;e une <b>facture client Odoo</b> (<i>account.move</i>) au nom du contact du membre : une ligne pour l'abonnement et une ligne par produit additionnel. Le <b>statut de paiement</b> de la facture remonte sur l'abonnement. La facture suit ensuite le circuit habituel de la comptabilit&eacute; Odoo&nbsp;: validation, paiement, avoir.</p>
+    <div align="center">
+        <img src="screenshots/facture.png" width="640" alt="Facture client Odoo g&eacute;n&eacute;r&eacute;e depuis un abonnement, statut Pay&eacute;">
+    </div>
+
+    <hr>
+
+    <h2>Coachs et programmes d'entra&icirc;nement</h2>
+    <p>Fiche coach avec photo, sp&eacute;cialit&eacute;, dipl&ocirc;me, ann&eacute;es d'exp&eacute;rience, biographie, disponibilit&eacute; (Disponible, Occup&eacute;, En cong&eacute;) et <b>salles d'intervention</b>. Chaque coach voit son portefeuille de membres et ses programmes.</p>
+    <div align="center">
+        <img src="screenshots/coachs.png" width="640" alt="Kanban des coachs : sp&eacute;cialit&eacute;, nombre de membres suivis, disponibilit&eacute;">
+    </div>
+    <div align="center">
+        <img src="screenshots/fiche-coach.png" width="640" alt="Fiche coach : qualification, salles d'intervention, membres suivis et programmes">
+    </div>
+
+    <p>Un <b>programme d'entra&icirc;nement</b> peut regrouper <b>plusieurs membres, plusieurs coachs et plusieurs objectifs</b>. Il contient la liste des exercices avec s&eacute;ries, r&eacute;p&eacute;titions, charge et temps de repos, ainsi que les observations du coach. Il passe de Brouillon &agrave; En cours puis Termin&eacute;.</p>
+    <div align="center">
+        <img src="screenshots/programmes.png" width="640" alt="Kanban des programmes : membres, coachs, objectifs et nombre d'exercices">
+    </div>
+    <div align="center">
+        <img src="screenshots/programme.png" width="640" alt="Programme de prise de masse : exercices, s&eacute;ries, r&eacute;p&eacute;titions, charge et repos">
+    </div>
+
+    <hr>
+
+    <h2>Salles et clubs</h2>
+    <p>G&eacute;rez une ou plusieurs salles : coordonn&eacute;es (pays, ville, quartier, t&eacute;l&eacute;phone, e-mail), capacit&eacute; maximale, <b>horaires d'ouverture jour par jour</b> (avec g&eacute;n&eacute;ration automatique de la semaine type), membres rattach&eacute;s, coachs et inventaire d'&eacute;quipements.</p>
+    <div align="center">
+        <img src="screenshots/salles.png" width="640" alt="Liste des salles et clubs">
+    </div>
+    <div align="center">
+        <img src="screenshots/salle.png" width="640" alt="Fiche d'une salle : coordonn&eacute;es, capacit&eacute;, horaires d'ouverture et onglets membres, coachs, inventaire">
+    </div>
+
+    <hr>
+
+    <h2>Inventaire multi-salles</h2>
+    <p>Un m&ecirc;me article de mat&eacute;riel peut &ecirc;tre pr&eacute;sent dans plusieurs salles <b>sans jamais &ecirc;tre dupliqu&eacute;</b> dans le catalogue. Depuis la fiche de l'article, on renseigne une ligne par salle avec sa quantit&eacute;, son &eacute;tat, sa r&eacute;f&eacute;rence d'inventaire, sa date et son prix d'achat.</p>
+    <div align="center">
+        <img src="diagrams/inventaire-multi-salles.png" width="640" alt="Un article, plusieurs salles, chacune avec sa quantit&eacute; et son &eacute;tat">
+    </div>
+    <div align="center">
+        <img src="screenshots/equipements.png" width="640" alt="Catalogue des &eacute;quipements : quantit&eacute; totale, nombre de salles, alerte d'&eacute;tat">
+    </div>
+    <div align="center">
+        <img src="screenshots/equipement-multi-salles.png" width="640" alt="Fiche d'un &eacute;quipement : pr&eacute;sence par salle, quantit&eacute;, &eacute;tat et r&eacute;f&eacute;rence">
+    </div>
+
+    <ul>
+        <li>&Eacute;tats du mat&eacute;riel : <b>bon &eacute;tat, en maintenance, endommag&eacute;, retir&eacute;</b></li>
+        <li><b>Mouvements d'entr&eacute;e et de sortie</b> par salle (achat, retour, mise hors service, perte, retrait) qui mettent &agrave; jour la quantit&eacute; automatiquement</li>
+        <li>R&eacute;f&eacute;rences d'inventaire <b>uniques</b> et une seule ligne par couple article / salle : pas de doublon possible</li>
+        <li><b>Rapport d'&eacute;tat du stock des outils</b>, regroup&eacute; par article ou par salle</li>
+    </ul>
+    <div align="center">
+        <img src="screenshots/stock-outils.png" width="640" alt="Rapport d'&eacute;tat de stock des outils : entr&eacute;es, sorties, motifs et &eacute;tats, regroup&eacute; par outil">
+    </div>
+
+    <hr>
+
+    <h2>Boutique et configuration</h2>
+    <p>Vendez eau, prot&eacute;ines, gants, serviettes&hellip; La boutique utilise les produits natifs d'Odoo ; ils s'ajoutent aux abonnements et se facturent ensemble. Deux produits sont fournis &agrave; l'installation : les frais d'inscription et la bouteille d'eau.</p>
+    <div align="center">
+        <img src="screenshots/boutique.png" width="640" alt="Boutique : produits et prix">
+    </div>
+
+    <p>Les listes de r&eacute;f&eacute;rence se param&egrave;trent dans <b>Configuration</b> : disciplines (dur&eacute;e par s&eacute;ance, participants max, prix par d&eacute;faut, &eacute;quipements requis), objectifs sportifs et niveaux de pratique. Des valeurs par d&eacute;faut sont fournies.</p>
+    <div align="center">
+        <img src="screenshots/disciplines.png" width="640" alt="Disciplines et activit&eacute;s : dur&eacute;e, abonnements associ&eacute;s">
+    </div>
+    <div align="center">
+        <img src="screenshots/objectifs.png" width="520" alt="Objectifs sportifs">
+    </div>
+    <div align="center">
+        <img src="screenshots/niveaux.png" width="520" alt="Niveaux de pratique">
+    </div>
+
+    <hr>
+
+    <h2>Analyses et rapports</h2>
+    <p>L'analyse des abonnements, en graphique ou en tableau crois&eacute;, montre les revenus par discipline, par coach, par salle ou par type, filtrables par statut.</p>
+    <div align="center">
+        <img src="screenshots/analyse-abonnements.png" width="640" alt="Analyse des abonnements : revenus par discipline">
+    </div>
+
+    <hr>
+
+    <h2>Documents PDF pr&ecirc;ts &agrave; imprimer</h2>
+    <p>Sept documents, aux couleurs de votre club (nom, logo et adresse de votre soci&eacute;t&eacute;), g&eacute;n&eacute;r&eacute;s avec les donn&eacute;es &agrave; jour de la fiche, sans aucune ressaisie.</p>
+
+    <h3>Fiche d'inscription du membre</h3>
+    <p>R&eacute;capitulatif complet &agrave; l'accueil, avec photo, informations personnelles, donn&eacute;es physiques, objectif et abonnement, et zones de signature. Bouton <i>Imprimer Fiche</i> sur la fiche du membre.</p>
+    <div align="center">
+        <img src="screenshots/pdf-fiche-inscription.png" width="640" alt="Fiche d'inscription du membre en PDF">
+    </div>
+
+    <h3>Pass / badge du membre et du coach</h3>
+    <p>Carte d'acc&egrave;s &agrave; pr&eacute;senter en salle, avec photo, salle et p&eacute;riode d'abonnement. Disponible aussi pour les coachs.</p>
+    <div align="center">
+        <img src="screenshots/pdf-pass-membre.png" width="300" alt="Pass membre">
+        &nbsp;&nbsp;
+        <img src="screenshots/pdf-pass-coach.png" width="300" alt="Pass coach">
+    </div>
+
+    <h3>Contrat d'abonnement</h3>
+    <p>Document contractuel avec les conditions et la p&eacute;riode, imprimable depuis le bouton <i>Imprimer Contrat</i> sur l'abonnement.</p>
+    <div align="center">
+        <img src="screenshots/pdf-contrat.png" width="640" alt="Document d'abonnement en PDF">
+    </div>
+
+    <h3>Fiche coach</h3>
+    <p>Profil, qualification, salles d'intervention, membres suivis et programmes encadr&eacute;s.</p>
+    <div align="center">
+        <img src="screenshots/pdf-fiche-coach.png" width="640" alt="Fiche coach en PDF">
+    </div>
+
+    <h3>Fiche salle</h3>
+    <p>&Eacute;tat des lieux d'une salle : localisation, horaires, abonnements des clients, coachs et inventaire des &eacute;quipements.</p>
+    <div align="center">
+        <img src="screenshots/pdf-fiche-salle.png" width="640" alt="Fiche technique d'une salle en PDF">
+    </div>
+
+    <h3>Rapport p&eacute;riodique des abonnements</h3>
+    <p>G&eacute;n&eacute;r&eacute; &agrave; la demande sur la p&eacute;riode, le statut et la salle de votre choix depuis l'assistant du menu Rapports. Id&eacute;al pour un bilan mensuel ou un compte rendu &agrave; la direction.</p>
+    <div align="center">
+        <img src="screenshots/assistant-rapport.png" width="640" alt="Assistant de rapport p&eacute;riodique : p&eacute;riode, statut, salle">
+    </div>
+    <div align="center">
+        <img src="screenshots/pdf-rapport-periodique.png" width="640" alt="Rapport p&eacute;riodique des abonnements en PDF">
+    </div>
+
+    <hr>
+
+    <h2>R&ocirc;les et droits d'acc&egrave;s</h2>
+    <p>Trois niveaux d'acc&egrave;s adaptent les droits de chaque utilisateur &agrave; ses responsabilit&eacute;s. V&eacute;rifiez qu'ils correspondent &agrave; l'organisation de votre &eacute;quipe avant la mise en production.</p>
+    <div align="center">
+        <img src="diagrams/roles.png" width="640" alt="Trois niveaux d'acc&egrave;s : Utilisateur, Responsable, Administrateur Gym">
+    </div>
+
+    <h3>Utilisateur Gym</h3>
+    <ul>
+        <li>Consulte et cr&eacute;e des membres et des abonnements</li>
+        <li>Enregistre les mouvements de stock (entr&eacute;es / sorties)</li>
+        <li>Consulte les programmes, coachs, disciplines et salles</li>
+        <li>Ne peut pas cr&eacute;er ni modifier une salle, ne peut rien supprimer</li>
+    </ul>
+
+    <h3>Responsable Gym</h3>
+    <ul>
+        <li>H&eacute;rite des droits de l'Utilisateur Gym</li>
+        <li>G&egrave;re les coachs, les salles et la configuration du module</li>
+        <li>Accorde des remises, modifie le prix et cr&eacute;e les factures depuis les abonnements</li>
+        <li>Ne peut pas modifier le pays, la ville ou le quartier d'une salle existante, ni supprimer membres et abonnements</li>
+    </ul>
+
+    <h3>Administrateur Gym</h3>
+    <ul>
+        <li>H&eacute;rite des droits du Responsable Gym</li>
+        <li>Peut modifier la localisation des salles</li>
+        <li>Droits complets de cr&eacute;ation, modification et suppression, param&eacute;trage complet du module</li>
+    </ul>
+
+    <hr>
+
+    <h2>Le processus, &eacute;tape par &eacute;tape</h2>
+    <ol>
+        <li><b>Param&eacute;trage</b> &mdash; salles et horaires, coachs, disciplines, objectifs, niveaux, produits de la boutique.</li>
+        <li><b>Inscription</b> &mdash; fiche du membre avec photo, morphologie, objectifs et contact client ; impression de la fiche d'inscription.</li>
+        <li><b>Abonnement</b> &mdash; choix du type, des disciplines et du coach ; prix et dates calcul&eacute;s ; ajout des produits ; confirmation.</li>
+        <li><b>Facturation</b> &mdash; cr&eacute;ation de la facture Odoo, encaissement dans la comptabilit&eacute;, statut de paiement visible sur l'abonnement ; impression du contrat et du pass.</li>
+        <li><b>Coaching</b> &mdash; programme d'entra&icirc;nement avec exercices, s&eacute;ries, r&eacute;p&eacute;titions, charges et repos.</li>
+        <li><b>Suivi quotidien</b> &mdash; tableau de bord, abonnements qui expirent, expiration automatique.</li>
+        <li><b>Renouvellement</b> &mdash; un clic sur l'abonnement expir&eacute;.</li>
+        <li><b>Mat&eacute;riel</b> &mdash; mouvements de stock par salle, alertes maintenance, rapport d'&eacute;tat du stock.</li>
+        <li><b>Bilan</b> &mdash; analyses des abonnements et rapport p&eacute;riodique PDF.</li>
+    </ol>
+
+    <hr>
+
+    <h2>Fonctionnalit&eacute;s principales</h2>
+    <ol>
+        <li><b>Gestion des membres</b> &mdash; fiches compl&egrave;tes, photo, morphologie, IMC automatique, objectifs, sant&eacute;, historique.</li>
+        <li><b>Gestion des abonnements</b> &mdash; 5 types, calcul automatique des dates et du prix, remises, produits additionnels.</li>
+        <li><b>Facturation int&eacute;gr&eacute;e</b> &mdash; factures clients natives Odoo et statut de paiement synchronis&eacute;.</li>
+        <li><b>Expiration et renouvellement</b> &mdash; t&acirc;che planifi&eacute;e quotidienne, renouvellement en un clic.</li>
+        <li><b>Gestion des coachs</b> &mdash; sp&eacute;cialit&eacute;, disponibilit&eacute;, salles, portefeuille de membres.</li>
+        <li><b>Programmes d'entra&icirc;nement</b> &mdash; multi-membres, multi-coachs, multi-objectifs, exercices d&eacute;taill&eacute;s.</li>
+        <li><b>Multi-salles</b> &mdash; coordonn&eacute;es, capacit&eacute;, horaires jour par jour.</li>
+        <li><b>Inventaire partag&eacute;</b> &mdash; un article, plusieurs salles, quantit&eacute; et &eacute;tat par salle, mouvements trac&eacute;s.</li>
+        <li><b>Boutique</b> &mdash; produits natifs vendus avec l'abonnement.</li>
+        <li><b>Tableau de bord</b> &mdash; KPI membres, abonnements, mat&eacute;riel et revenus, actualisation automatique.</li>
+        <li><b>Analyses</b> &mdash; graphiques et tableau crois&eacute; des abonnements.</li>
+        <li><b>7 documents PDF</b> &mdash; fiche d'inscription, pass membre et coach, contrat, fiche coach, fiche salle, rapport p&eacute;riodique.</li>
+        <li><b>3 niveaux d'acc&egrave;s</b> &mdash; Utilisateur, Responsable, Administrateur.</li>
+        <li><b>Historique complet</b> &mdash; suivi des modifications et activit&eacute;s dans le chatter Odoo.</li>
+    </ol>
+
+    <hr>
+
+    <h2>Fiche technique</h2>
+    <ul>
+        <li><b>Version Odoo :</b> 18.0 (natif)</li>
+        <li><b>&Eacute;ditions compatibles :</b> Community &amp; Enterprise</li>
+        <li><b>Licence logicielle :</b> OPL-1</li>
+        <li><b>Cat&eacute;gorie Odoo Apps :</b> Services / Fitness</li>
+        <li><b>D&eacute;pendances :</b> base, mail, account, product, hr</li>
+        <li><b>Monnaie :</b> celle de votre soci&eacute;t&eacute; (les tarifs par d&eacute;faut sont modifiables par abonnement)</li>
+    </ul>
+
+    <hr>
+
+    <!-- SUPPORT / AUTHOR -->
+    <div style="text-align:center; padding:30px; border-top:2px solid #eee;">
+
+        <h2 style="font-size:20px; color:#1B3B6F; margin-bottom:10px;">
+            Support et auteur
+        </h2>
+
+        <p style="color:#555; font-size:15px; margin:4px 0;">
+            <strong>Auteur :</strong> Kambeu Henang Ange Duval
+        </p>
+
+        <p style="color:#555; font-size:15px; margin:4px 0;">
+            <strong>Support :</strong>
+            <a href="mailto:duvalkambeu61@gmail.com">
+                duvalkambeu61@gmail.com
+            </a>
+        </p>
+
+        <p style="color:#888; font-size:13px; margin-top:16px;">
+            Une question, un bug, une demande d'&eacute;volution ?
+            <br>
+            Contactez-nous, nous r&eacute;pondons rapidement.
+        </p>
+
+    </div>
+
+</body>
+</html>

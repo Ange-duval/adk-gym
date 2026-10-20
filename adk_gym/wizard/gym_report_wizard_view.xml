@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<record id="view_gym_report_wizard_form" model="ir.ui.view">
+		<field name="name">adk.gym.report.wizard.form</field>
+		<field name="model">adk.gym.report.wizard</field>
+		<field name="arch" type="xml">
+			<form string="Extraction des Rapports">
+				<sheet>
+					<group>
+						<group string="Période">
+							<field name="date_start"/>
+							<field name="date_end"/>
+						</group>
+						<group string="Filtres">
+							<field name="state_filter"/>
+							<field name="salle_id" options="{'no_create': True}"/>
+						</group>
+					</group>
+				</sheet>
+				<footer>
+					<button name="action_print_report" string="Générer Rapport" type="object" class="oe_highlight"/>
+					<button string="Annuler" class="btn-secondary" special="cancel"/>
+				</footer>
+			</form>
+		</field>
+	</record>
+
+	<record id="action_gym_report_wizard" model="ir.actions.act_window">
+		<field name="name">Rapport des Abonnements</field>
+		<field name="res_model">adk.gym.report.wizard</field>
+		<field name="view_mode">form</field>
+		<field name="target">new</field>
+	</record>
+</odoo>

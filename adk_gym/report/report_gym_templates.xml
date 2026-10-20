@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Déclaration de l'action d'impression du rapport Wizard -->
+	<record id="action_report_subscription_list" model="ir.actions.report">
+		<field name="name">Liste des Abonnements</field>
+		<field name="model">adk.gym.subscription</field>
+		<field name="report_type">qweb-pdf</field>
+		<field name="report_name">adk_gym.report_subscription_list_template</field>
+		<field name="report_file">adk_gym.report_subscription_list_template</field>
+		<field name="print_report_name">'Abonnements_%s' % (object.name)</field>
+		<field name="binding_model_id" eval="False"/>
+	</record>
+
+	<!-- Template QWeb du rapport -->
+	<template id="report_subscription_list_template">
+		<t t-call="web.html_container">
+			<t t-call="web.external_layout">
+				<div class="page">
+					<h2 class="text-center" style="margin-bottom:20px;">Rapport périodique des Abonnements ADK Gym</h2>
+					<table class="table table-sm o_main_table table-bordered">
+						<thead>
+							<tr class="bg-light">
+								<th>Référence</th>
+								<th>Membre</th>
+								<th>Discipline</th>
+								<th>Date Début</th>
+								<th>Date Fin</th>
+								<th class="text-right">Total</th>
+								<th>Statut</th>
+							</tr>
+						</thead>
+						<tbody>
+							<t t-foreach="docs" t-as="doc">
+								<tr>
+									<td>
+										<span t-field="doc.name"/>
+									</td>
+									<td>
+										<span t-field="doc.member_id.name"/>
+									</td>
+									<td>
+										<t t-esc="', '.join(doc.discipline_ids.mapped('name'))"/>
+									</td>
+									<td>
+										<span t-field="doc.date_start"/>
+									</td>
+									<td>
+										<span t-field="doc.date_end"/>
+									</td>
+									<td class="text-right">
+										<span t-field="doc.total_amount"/> F CFA
+									</td>
+									<td>
+										<span t-if="doc.state == 'draft'">Brouillon</span>
+										<span t-elif="doc.state == 'active'">Actif</span>
+										<span t-elif="doc.state == 'expired'">Expiré</span>
+										<span t-else="">Annulé</span>
+									</td>
+								</tr>
+							</t>
+						</tbody>
+					</table>
+				</div>
+			</t>
+		</t>
+	</template>
+</odoo>
